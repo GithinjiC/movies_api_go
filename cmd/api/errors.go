@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-
-	// "golang.org/x/text/message"
 )
 
 func (app *application) logError(r *http.Request, err error) {
@@ -80,7 +78,7 @@ func (app *application) inactiveAccountResponse(w http.ResponseWriter, r *http.R
 	app.errorResponse(w, r, http.StatusForbidden, message)
 }
 
-func (app *application) notPermittedResponse(w http.ResponseWriter, r * http.Request) {
+func (app *application) notPermittedResponse(w http.ResponseWriter, r *http.Request) {
 	message := "your user account doesn't have the necessary permissions to access this resource"
 	app.errorResponse(w, r, http.StatusForbidden, message)
 }

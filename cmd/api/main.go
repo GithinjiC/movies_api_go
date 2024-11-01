@@ -12,6 +12,7 @@ import (
 	"movies.cosmasgithinji.net/internal/mailer"
 	// "net/http"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -38,6 +39,9 @@ type config struct {
 		username string
 		password string
 		sender   string
+	}
+	cors struct {
+		trustedOrigins []string
 	}
 }
 
@@ -70,6 +74,11 @@ func main() {
 	flag.StringVar(&cfg.smtp.username, "smtp-username", "8303f220f5ba3e", "SMTP Username")
 	flag.StringVar(&cfg.smtp.password, "smtp-password", "d90beead92b589", "SMTP Password")
 	flag.StringVar(&cfg.smtp.sender, "smtp-sender", "MovieBox <no-reply@movies.cosmasgithinji.net>", "SMTP Sender")
+
+	flag.Func("cors-trusted-origins", "Trusted CORS origins (space separated)", func(val string) error {
+		cfg.cors.trustedOrigins = strings.Fields(val)
+		return nil
+	})
 
 	flag.Parse()
 
