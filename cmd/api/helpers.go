@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 
@@ -142,4 +143,38 @@ func (app *application) background(fn func()) {
 
 		fn()
 	}()
+}
+
+func getEnvAsInt(name string, defaultVal int) int {
+	if value, exists := os.LookupEnv(name); exists {
+		if intValue, err := strconv.Atoi(value); err == nil {
+			return intValue
+		}
+	}
+	return defaultVal
+}
+
+func getEnvAsBool(name string, defaultVal bool) bool {
+	if value, exists := os.LookupEnv(name); exists {
+		if boolValue, err := strconv.ParseBool(value); err == nil {
+			return boolValue
+		}
+	}
+	return defaultVal
+}
+
+func getEnvAsString(name, defaultVal string) string {
+	if value, exists := os.LookupEnv(name); exists && len(value) > 0 {
+		return value
+	}
+	return defaultVal
+}
+
+func getEnvAsFloat(name string, defaultVal float64) float64 {
+	if value, exists := os.LookupEnv(name); exists {
+		if floatValue, err := strconv.ParseFloat(value, 64); err == nil {
+			return floatValue
+		}
+	}
+	return defaultVal
 }
