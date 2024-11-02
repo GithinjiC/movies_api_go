@@ -77,7 +77,7 @@ vendor:
 linux_current_time = $(shell date --iso-8601=seconds)
 macOS_current_time = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-git_description = ${shell git describe --always --dirty}
+git_description = ${shell git describe --always --dirty --tags --long}
 
 # ## build/api/macos: build the cmd/api application
 .PHONY: build/api
