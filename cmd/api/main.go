@@ -4,13 +4,17 @@ import (
 	"context"
 	"database/sql"
 	"flag"
+	"runtime"
+
 	// "fmt"
 	_ "github.com/lib/pq"
 	// "log"
 	"movies.cosmasgithinji.net/internal/data"
 	"movies.cosmasgithinji.net/internal/jsonlog"
 	"movies.cosmasgithinji.net/internal/mailer"
+
 	// "net/http"
+	"expvar"
 	"os"
 	"strings"
 	"sync"
@@ -94,6 +98,20 @@ func main() {
 	defer db.Close()
 
 	logger.PrintInfo("database connection pool established", nil)
+
+	expvar.NewString("version").Set(version)
+
+	expvar.Publish("goroutines", expvar.Func(func() interface{} {
+		return runtime.NumGoroutine()
+	}))
+
+	expvar.Publish("timestamp", expvar.Func(func() interface{} {
+		return time.Now().Unix()
+	}))
+
+	expvar.Publish("database", expvar.Func(func() interface{} {
+		return db.Stats()
+	}))
 
 	app := &application{
 		config: cfg,
