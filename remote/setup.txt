@@ -1,0 +1,2 @@
+Setup  an Ansible/Bash script for configuration management.
+Ideally install all server dependencies, configs, updates, users, DB etc.

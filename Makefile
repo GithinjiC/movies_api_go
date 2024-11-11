@@ -98,3 +98,12 @@ build/api:
 # build/api/linux:
 # 	@echo 'Building cmd/api for Linux...'
 # 	GOOS=${GOOS} GOARCH=${GOARCH} go build -ldflags='-s -X main.buildTime=$(shell date --iso-8601=seconds)' -o=./bin/${GOOS}_${GOARCH}/api ./cmd/api
+
+
+# ============================================================================= #
+# TO-DO
+# ============================================================================= #
+
+# - Production Deployment steps
+# - Automate DB migrations
+# - Start the application as a background service
